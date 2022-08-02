@@ -1,0 +1,170 @@
+.homeWrapper {
+  padding: 21px;
+  display: flex;
+  flex-direction: column;
+}
+
+.homeTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 19px 0px;
+  background: #1b1033;
+  padding: 21px;
+  border-radius: 21px;
+}
+
+.homeTopLeft {
+  flex: 1;
+  margin-left: 21px;
+  padding: 0 13px;
+}
+
+.homeTitle {
+  color: #aa35e9;
+  font-weight: 400;
+  font-size: 50px;
+}
+
+.homeTopRight {
+  flex: 2;
+  margin-right: 21px;
+  display: flex;
+  align-items: center;
+}
+
+.homeForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.homeLabel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-left: 10px;
+  color: #aa35e9;
+  font-weight: bold;
+}
+
+.homeInput {
+  text-align: center;
+  margin-top: 13px;
+  font-size: 18px;
+  border-bottom: 2px solid #aa35e9;
+  padding: 0 5px 10px 5px;
+}
+
+.homeSelectInput {
+  flex: 1;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeSelect {
+  margin-top: 13px;
+  background: #aa35e9;
+  padding: 7.5px 10px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.homeBottom {
+  margin-top: 21px;
+}
+
+.homeCharacters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.character {
+  flex: 1;
+  margin: 21px;
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 29px 0px;
+  background: #1b1033;
+  border-radius: 50px;
+  position: relative;
+}
+
+.characterWrapper {
+  border-radius: 50px;
+  padding: 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.characterImage {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.characterBottom {
+  margin-top: 13px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-bottom: 30px;
+}
+
+.characterBottomLeft,
+.characterBottomRight {
+  flex: 1;
+  text-align: center;
+}
+
+.characterText {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 13px;
+}
+
+.characterLabel {
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.characterSeeMore {
+  position: absolute;
+  padding: 8px 13px;
+  background: #610094;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 13px;
+  bottom: 18px;
+}
+
+.homePagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.homeButton {
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 19px 0px;
+  padding: 21px;
+  font-size: 21px;
+  border-radius: 21px;
+  cursor: pointer;
+  transition: 0.3s all ease-in-out;
+}
+
+.homeButton:hover {
+  background: #fff;
+}
+
+.homeButton:hover > i {
+  color: #1b1033 !important;
+}

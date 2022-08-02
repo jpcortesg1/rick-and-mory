@@ -1,0 +1,45 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #610094;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 29px 0px;
+}
+
+.topbarLeft {
+  margin-left: 21px;
+}
+
+.topbarImg {
+  height: 75px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.topbarRight {
+  margin-right: 21px;
+}
+
+.topbarRightItems {
+  display: flex;
+  align-items: center;
+}
+
+.topbarRightItem {
+  list-style: none;
+}
+
+.topbartText {
+  margin-right: 13px;
+  padding: 13px;
+}
+
+.topbartText.active {
+  background: #0c0717;
+  border-radius: 10px;
+  box-shadow: rgba(242, 0, 255, 0.2) 0px 7px 29px 0px;
+}
