@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import "./home.css";
 
 export default function Home() {
-  const [page, setPage] = useState(1);
   const [characters, setCharacter] = useState([]);
+  const [infoPage, setInfoPage] = useState({
+    current: 1,
+    min: 1,
+    max: 1,
+  });
   const [filter, setFilter] = useState({
     name: "",
     species: "",
@@ -12,17 +16,58 @@ export default function Home() {
     gender: "",
   });
 
-  const handleNext = () => setPage((currentPage) => currentPage + 1);
-  const handlePrev = () => setPage((currentPage) => currentPage - 1);
+  useEffect(() => {
+    console.log(infoPage);
+  }, [infoPage]);
+
+  // Next page
+  const handleNext = () =>
+    setInfoPage((currentInfoPage) => ({
+      ...currentInfoPage,
+      current: currentInfoPage.current + 1,
+    }));
+
+  // Next page
+  const handlePrev = () =>
+    setInfoPage((currentInfoPage) => ({
+      ...currentInfoPage,
+      current: currentInfoPage.current - 1,
+    }));
+
+  const handleMaxPage = (newMaxPage) =>
+    setInfoPage((currentInfoPage) => ({
+      ...currentInfoPage,
+      max: newMaxPage,
+    }));
+
+  // Set page in 1 and filters for default
+  const setFiltersAndPage = () => {
+    setInfoPage({
+      current: 1,
+      min: 1,
+      max: 1,
+    });
+    setFilter({
+      name: "",
+      species: "",
+      type: "",
+      status: "",
+      gender: "",
+    });
+  };
 
   useEffect(() => {
     const createPath = () => {
       let filters = "";
+
+      // Create string with all filters
       Object.keys(filter).forEach((key) => {
         if (filter[key] !== "")
           filters = filters.concat(`&${key}=${filter[key]}`);
       });
-      let path = `https://rickandmortyapi.com/api/character?page=${page}`;
+      let path = `https://rickandmortyapi.com/api/character?page=${infoPage.current}`;
+
+      // Concat path with all current filters
       path = path.concat(filters);
       return path;
     };
@@ -32,15 +77,22 @@ export default function Home() {
       try {
         const response = await fetch(path); // Get data with dinamic page;
         const { status } = response;
-        if (status !== 200) return;
-        const { results } = await response.json(); // Convert to JSON and get characters
-        setCharacter(results); // Set characters
+        const { current: page } = infoPage;
+
+        if (status !== 200 && page > 0) handlePrev(); // Reduce number of page until have data
+        if ((status !== 200) & (page === 1)) setFiltersAndPage(); // If reach the limit, set all like in the start
+
+        const { results, info } = await response.json(); // Convert to JSON and get characters
+        const { pages: newMaxPage } = info;
+        handleMaxPage(newMaxPage); // Set max page
+
+        setCharacter(() => [...results]); // Set characters
       } catch (error) {
-        setCharacter((currentCharacter) => [...currentCharacter]);
+        setCharacter((currentCharacter) => [...currentCharacter]); // No changes
       }
     };
     getData();
-  }, [page, filter]);
+  }, [infoPage.current, filter]);
 
   const handleChangeForm = ({ target }) => {
     const { value, name } = target;
@@ -116,7 +168,7 @@ export default function Home() {
         </div>
         <div className="homeBottom">
           <div className="homeCharacters">
-            {characters.map((character, index) => (
+            {characters?.map((character, index) => (
               <div className="character" key={index}>
                 <div className="characterWrapper">
                   <div className="characterTop">
@@ -146,12 +198,12 @@ export default function Home() {
             ))}
           </div>
           <div className="homePagination">
-            {page > 1 && (
+            {infoPage.current > infoPage.min && (
               <button className="homeButton" onClick={handlePrev}>
                 <i className="fa-solid fa-angle-left"></i>
               </button>
             )}
-            {page <= 41 && (
+            {infoPage.current < infoPage.max && (
               <button className="homeButton" onClick={handleNext}>
                 <i className="fa-solid fa-angle-right"></i>
               </button>
