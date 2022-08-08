@@ -16,10 +16,6 @@ export default function Home() {
     gender: "",
   });
 
-  useEffect(() => {
-    console.log(infoPage);
-  }, [infoPage]);
-
   // Next page
   const handleNext = () =>
     setInfoPage((currentInfoPage) => ({
