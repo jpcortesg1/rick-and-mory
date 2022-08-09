@@ -1,99 +1,38 @@
 import { useEffect, useState } from "react";
+import useFetchDataPagesFilter from "../../hooks/useFetchDataPagesFilter";
+import useFilter from "../../hooks/useFilter";
+import useInfoPage from "../../hooks/useInfoPage";
 import "./home.css";
 
 export default function Home() {
-  const [characters, setCharacter] = useState([]);
-  const [infoPage, setInfoPage] = useState({
-    current: 1,
-    min: 1,
-    max: 1,
-  });
-  const [filter, setFilter] = useState({
+  // Manage the pagination
+  const [infoPage, functionsInfoPage] = useInfoPage();
+  const {
+    handleNext,
+    handlePrev,
+    handleInitialState: handleInitialStateInfoPage,
+  } = functionsInfoPage;
+
+  // Manage form inputs
+  const [filter, functionsInfoFilter] = useFilter({
     name: "",
     species: "",
     type: "",
     status: "",
     gender: "",
   });
+  const { handleChangeFilter, handleInitialState: handleInitialStateFilter } =
+    functionsInfoFilter;
 
-  // Next page
-  const handleNext = () =>
-    setInfoPage((currentInfoPage) => ({
-      ...currentInfoPage,
-      current: currentInfoPage.current + 1,
-    }));
-
-  // Next page
-  const handlePrev = () =>
-    setInfoPage((currentInfoPage) => ({
-      ...currentInfoPage,
-      current: currentInfoPage.current - 1,
-    }));
-
-  const handleMaxPage = (newMaxPage) =>
-    setInfoPage((currentInfoPage) => ({
-      ...currentInfoPage,
-      max: newMaxPage,
-    }));
-
-  // Set page in 1 and filters for default
-  const setFiltersAndPage = () => {
-    setInfoPage({
-      current: 1,
-      min: 1,
-      max: 1,
-    });
-    setFilter({
-      name: "",
-      species: "",
-      type: "",
-      status: "",
-      gender: "",
-    });
-  };
-
-  useEffect(() => {
-    const createPath = () => {
-      let filters = "";
-
-      // Create string with all filters
-      Object.keys(filter).forEach((key) => {
-        if (filter[key] !== "")
-          filters = filters.concat(`&${key}=${filter[key]}`);
-      });
-      let path = `https://rickandmortyapi.com/api/character?page=${infoPage.current}`;
-
-      // Concat path with all current filters
-      path = path.concat(filters);
-      return path;
-    };
-
-    const getData = async () => {
-      const path = createPath();
-      try {
-        const response = await fetch(path); // Get data with dinamic page;
-        const { status } = response;
-        const { current: page } = infoPage;
-
-        if (status !== 200 && page > 0) handlePrev(); // Reduce number of page until have data
-        if ((status !== 200) & (page === 1)) setFiltersAndPage(); // If reach the limit, set all like in the start
-
-        const { results, info } = await response.json(); // Convert to JSON and get characters
-        const { pages: newMaxPage } = info;
-        handleMaxPage(newMaxPage); // Set max page
-
-        setCharacter(() => [...results]); // Set characters
-      } catch (error) {
-        setCharacter((currentCharacter) => [...currentCharacter]); // No changes
-      }
-    };
-    getData();
-  }, [infoPage.current, filter]);
-
-  const handleChangeForm = ({ target }) => {
-    const { value, name } = target;
-    setFilter((currentFilter) => ({ ...currentFilter, [name]: value }));
-  };
+  // Get data to render
+  const path = "https://rickandmortyapi.com/api/character?page=";
+  const [characters] = useFetchDataPagesFilter(
+    filter,
+    functionsInfoFilter,
+    path,
+    infoPage,
+    functionsInfoPage
+  );
 
   return (
     <div className="home">
@@ -111,7 +50,7 @@ export default function Home() {
                   type="text"
                   className="homeInput"
                   name="name"
-                  onChange={handleChangeForm}
+                  onChange={handleChangeFilter}
                 />
               </label>
               <label className="homeLabel">
@@ -121,7 +60,7 @@ export default function Home() {
                   type="text"
                   className="homeInput"
                   name="species"
-                  onChange={handleChangeForm}
+                  onChange={handleChangeFilter}
                 />
               </label>
               <label className="homeLabel">
@@ -131,7 +70,7 @@ export default function Home() {
                   type="text"
                   className="homeInput"
                   name="type"
-                  onChange={handleChangeForm}
+                  onChange={handleChangeFilter}
                 />
               </label>
               <div className="homeSelectInput">
@@ -139,7 +78,7 @@ export default function Home() {
                 <select
                   className="homeSelect"
                   name="status"
-                  onChange={handleChangeForm}
+                  onChange={handleChangeFilter}
                 >
                   <option value="alive">Alive</option>
                   <option value="dead">Dead</option>
@@ -151,7 +90,7 @@ export default function Home() {
                 <select
                   className="homeSelect"
                   name="gender"
-                  onChange={handleChangeForm}
+                  onChange={handleChangeFilter}
                 >
                   <option value="female">Female</option>
                   <option value="male">Male</option>
