@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useFetchDataPagesFilter from "../../hooks/useFetchDataPagesFilter";
 import useFilter from "../../hooks/useFilter";
 import useInfoPage from "../../hooks/useInfoPage";
@@ -7,11 +6,7 @@ import "./home.css";
 export default function Home() {
   // Manage the pagination
   const [infoPage, functionsInfoPage] = useInfoPage();
-  const {
-    handleNext,
-    handlePrev,
-    handleInitialState: handleInitialStateInfoPage,
-  } = functionsInfoPage;
+  const { handleNext, handlePrev } = functionsInfoPage;
 
   // Manage form inputs
   const [filter, functionsInfoFilter] = useFilter({
@@ -21,8 +16,7 @@ export default function Home() {
     status: "",
     gender: "",
   });
-  const { handleChangeFilter, handleInitialState: handleInitialStateFilter } =
-    functionsInfoFilter;
+  const { handleChangeFilter } = functionsInfoFilter;
 
   // Get data to render
   const path = "https://rickandmortyapi.com/api/character?page=";
