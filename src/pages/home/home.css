@@ -161,6 +161,13 @@
   transition: 0.3s all ease-in-out;
 }
 
+.homeCurrentPage {
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 19px 0px;
+  padding: 21px;
+  font-size: 21px;
+  border-radius: 21px;
+}
+
 .homeButton:hover {
   background: #fff;
 }

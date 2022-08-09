@@ -199,6 +199,7 @@ export default function Home() {
                 <i className="fa-solid fa-angle-left"></i>
               </button>
             )}
+            <div className="homeCurrentPage">{infoPage.current}</div>
             {infoPage.current < infoPage.max && (
               <button className="homeButton" onClick={handleNext}>
                 <i className="fa-solid fa-angle-right"></i>
