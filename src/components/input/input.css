@@ -1,0 +1,35 @@
+.label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-left: 10px;
+  color: #aa35e9;
+  font-weight: bold;
+}
+
+.input {
+  text-align: center;
+  margin-top: 13px;
+  font-size: 18px;
+  border-bottom: 2px solid #aa35e9;
+  padding: 0 5px 10px 5px;
+}
+
+.selectInput {
+  flex: 1;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select {
+  margin-top: 13px;
+  background: #aa35e9;
+  padding: 7.5px 10px;
+  border-radius: 10px;
+  font-size: 18px;
+}

@@ -1,0 +1,94 @@
+.characterWrapper {
+  padding: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.characterTop {
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1b1033;
+  box-shadow: rgba(168, 168, 189, 0.2) 0px 7px 19px 0px;
+  border-radius: 21px;
+}
+
+.characterTopLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 55px;
+}
+
+.characterImg {
+  border-radius: 21px;
+  object-fit: cover;
+}
+
+.characterTitle {
+  margin-top: 13px;
+  font-weight: 300;
+  font-size: 34px;
+}
+
+.characterTopRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.characterInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px;
+  width: 100%;
+  padding: 8px 13px;
+  font-size: 21px;
+}
+
+.characterKey {
+  font-weight: 900;
+}
+
+.characterValue {
+  font-weight: 300;
+}
+
+.characterBottom {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.characterBottomTitle {
+  font-size: 21px;
+  margin-bottom: 21px;
+}
+
+.characterEpisodes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.characterEpisode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 8px;
+  cursor: pointer;
+  padding: 8px;
+  background: #aa35e9;
+  border-radius: 5px;
+}

@@ -1,21 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import Filter from "../../components/filter/Filter";
 import useFetchDataPagesFilter from "../../hooks/useFetchDataPagesFilter";
 import useFilter from "../../hooks/useFilter";
 import useInfoPage from "../../hooks/useInfoPage";
+import { initialValuesFilter, filterForm } from "./dataHome";
 import "./home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   // Manage the pagination
   const [infoPage, functionsInfoPage] = useInfoPage();
   const { handleNext, handlePrev } = functionsInfoPage;
 
   // Manage form inputs
-  const [filter, functionsInfoFilter] = useFilter({
-    name: "",
-    species: "",
-    type: "",
-    status: "",
-    gender: "",
-  });
+  const [filter, functionsInfoFilter] = useFilter({ ...initialValuesFilter });
   const { handleChangeFilter } = functionsInfoFilter;
 
   // Get data to render
@@ -28,6 +27,11 @@ export default function Home() {
     functionsInfoPage
   );
 
+  // Change of page to individual character
+  const handleNavigate = (id) => {
+    navigate(`/character/${id}`);
+  };
+
   return (
     <div className="home">
       <div className="homeWrapper">
@@ -36,63 +40,11 @@ export default function Home() {
             <h1 className="homeTitle">Characters:</h1>
           </div>
           <div className="homeTopRight">
-            <form className="homeForm">
-              <label className="homeLabel">
-                Name:
-                <input
-                  placeholder="Rick..."
-                  type="text"
-                  className="homeInput"
-                  name="name"
-                  onChange={handleChangeFilter}
-                />
-              </label>
-              <label className="homeLabel">
-                Species:
-                <input
-                  placeholder="Human..."
-                  type="text"
-                  className="homeInput"
-                  name="species"
-                  onChange={handleChangeFilter}
-                />
-              </label>
-              <label className="homeLabel">
-                Type:
-                <input
-                  placeholder="Space station..."
-                  type="text"
-                  className="homeInput"
-                  name="type"
-                  onChange={handleChangeFilter}
-                />
-              </label>
-              <div className="homeSelectInput">
-                <label className="homeLabel">Status:</label>
-                <select
-                  className="homeSelect"
-                  name="status"
-                  onChange={handleChangeFilter}
-                >
-                  <option value="alive">Alive</option>
-                  <option value="dead">Dead</option>
-                  <option value="unknown">Unknown</option>
-                </select>
-              </div>
-              <div className="homeSelectInput">
-                <label className="homeLabel">Gender:</label>
-                <select
-                  className="homeSelect"
-                  name="gender"
-                  onChange={handleChangeFilter}
-                >
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                  <option value="genderless">Genderless</option>
-                  <option value="unknown">Unknown</option>
-                </select>
-              </div>
-            </form>
+            <Filter
+              form={{ ...filterForm }}
+              handleChangeFilter={handleChangeFilter}
+              filter={filter}
+            />
           </div>
         </div>
         <div className="homeBottom">
@@ -105,6 +57,7 @@ export default function Home() {
                       src={character.image}
                       alt=""
                       className="characterImage"
+                      onClick={() => handleNavigate(character.id)}
                     />
                   </div>
                   <div className="characterBottom">
@@ -120,7 +73,12 @@ export default function Home() {
                         {character.species}
                       </p>
                     </div>
-                    <button className="characterSeeMore">See More</button>
+                    <button
+                      className="characterSeeMore"
+                      onClick={() => handleNavigate(character.id)}
+                    >
+                      See More
+                    </button>
                   </div>
                 </div>
               </div>

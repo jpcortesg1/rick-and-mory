@@ -17,7 +17,12 @@ export default function Topbar() {
         <ul className="topbarRightItems">
           <li className="topbarRightItem">
             <Link to="/">
-              <span className={`topbartText ${pathname === "/" && "active"}`}>
+              <span
+                className={`topbartText ${
+                  (pathname === "/" || pathname.includes("character")) &&
+                  "active"
+                }`}
+              >
                 Character
               </span>
             </Link>
